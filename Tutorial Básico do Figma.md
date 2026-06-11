@@ -1,4 +1,5 @@
 # **Tutorial: Criando uma Tela de App no Figma**
+Criado pelo professor Daniel Souza
 
 ## **1. O que é o Figma?**
 O Figma é uma ferramenta de design baseada na web, ideal para criar interfaces de usuário (UI) e protótipos interativos. Ele funciona no navegador e também possui uma versão desktop. É colaborativo e gratuito para uso básico.
