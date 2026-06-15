@@ -30,7 +30,7 @@ O foco da atividade não é criar uma interface nova, mas sim observar e replica
 
 ## Entrega
 
-Enviar o link do projeto no Figma com permissão de visualização até a data informada pelo professor.
+Criar um arquivo com o link do projeto no Figma com permissão de visualização e fazer upload deste arquivo no GitHub. Enviar o link deste repositório para prof.lebc@gmail.com
 
 ## Dica
 
