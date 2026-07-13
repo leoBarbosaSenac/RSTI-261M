@@ -23,7 +23,7 @@ console.log("Hello, " + name);
 
 Rode os arquivos sempre com `node exercise01.js` (por exemplo) pelo terminal, já que agora o programa vai esperar você digitar algo.
 
-**Importante:** tudo que vem de `readline.question()` chega como **string**, mesmo que você digite um número. Então, sempre que precisar de um número, converta com `Number()`, `parseInt()` ou `parseFloat()`.
+**Importante:** tudo que vem de `readline.question()` chega como **string**, mesmo que você digite um número. Então, sempre que precisar de um número, converta com `Number()`.
 
 ---
 
