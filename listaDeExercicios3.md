@@ -8,6 +8,11 @@ Antes de começar, lembre-se de importar o readline-sync no topo do arquivo:
 ```javascript
 const ask = require("readline-sync");
 ```
+# Regras
+
+Código todo em inglês
+Indentação de código correta
+Consulte o material e os códigos de erro para corrigir seus bugs e tirar suas dúvidas 
 
 ---
 
