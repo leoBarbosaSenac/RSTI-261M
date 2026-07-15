@@ -10,9 +10,9 @@ const ask = require("readline-sync");
 ```
 # Regras
 
-Código todo em inglês
-Indentação de código correta
-Consulte o material e os códigos de erro para corrigir seus bugs e tirar suas dúvidas 
+Código todo em inglês  
+Indentação de código correta  
+Consulte o material e os códigos de erro para corrigir seus bugs e tirar suas dúvidas   
 
 ---
 
