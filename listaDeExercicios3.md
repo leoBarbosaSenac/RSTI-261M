@@ -65,25 +65,14 @@ Crie uma função `tipoDeTriangulo(lado1, lado2, lado3)` que recebe as medidas d
 
 ---
 
-## Exercício 7 — Categoria de IMC
-Crie uma função `calcularCategoriaIMC(peso, altura)` que calcula o IMC (`peso / (altura * altura)`) e retorna a categoria:
-- Menor que 18.5 → "Abaixo do peso"
-- 18.5 a 24.9 → "Peso normal"
-- 25 a 29.9 → "Sobrepeso"
-- 30 ou mais → "Obesidade"
-
-**Conceitos:** function que faz cálculo + decisão, if/else if.
-
----
-
-## Exercício 8 — Mês do Ano
+## Exercício 7 — Mês do Ano
 Crie uma função `nomeDoMes(numero)` que recebe um número de 1 a 12 e retorna o nome do mês correspondente. Caso o número seja inválido, retorne uma mensagem de erro.
 
 **Conceitos:** function, switch case, case default.
 
 ---
 
-## Exercício 9 — Desconto por Quantidade
+## Exercício 8 — Desconto por Quantidade
 Crie uma função `calcularDesconto(quantidade, precoUnitario)` que recebe a quantidade de itens comprados e o preço unitário, e aplica desconto sobre o valor total:
 - 10 ou mais itens → 20% de desconto
 - 5 a 9 itens → 10% de desconto
@@ -95,7 +84,7 @@ A função deve retornar o valor final da compra.
 
 ---
 
-## Exercício 10 — Menu de Operações (Desafio)
+## Exercício 9 — Menu de Operações (Desafio)
 Crie uma função `menuPrincipal()` que exibe um menu para o usuário escolher entre as opções:
 1. Verificar se um número é par ou ímpar
 2. Classificar uma nota
