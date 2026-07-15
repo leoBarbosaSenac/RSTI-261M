@@ -4,6 +4,8 @@
 
 Esta lista é para quem já terminou a lista anterior sem dificuldade. Os exercícios usam os **mesmos conceitos** (variáveis, tipos, `if/else`, `switch/case`), mas com problemas mais elaborados, entrada de dados pelo terminal e alguns métodos novos de texto e número que vocês vão precisar **pesquisar** para resolver.
 
+> **Observação:** esta versão evita métodos como `.includes()`, `.indexOf()` e `.slice()`, que também existem em arrays. Como vocês ainda não viram arrays, usamos apenas métodos exclusivos de string e number (`.replace()`, `.charAt()`, `.trim()`, `.toFixed()`, etc.), para não misturar conceitos antes da hora.
+
 ---
 
 # Preparando o ambiente: readline-sync
@@ -23,7 +25,7 @@ console.log("Hello, " + name);
 
 Rode os arquivos sempre com `node exercise01.js` (por exemplo) pelo terminal, já que agora o programa vai esperar você digitar algo.
 
-**Importante:** tudo que vem de `readline.question()` chega como **string**, mesmo que você digite um número. Então, sempre que precisar de um número, converta com `Number()`.
+**Importante:** tudo que vem de `ask.question()` chega como **string**, mesmo que você digite um número. Então, sempre que precisar de um número, converta com `Number()`.
 
 ---
 
@@ -39,13 +41,13 @@ Rode os arquivos sempre com `node exercise01.js` (por exemplo) pelo terminal, j�
 
 Peça ao usuário, via `readline-sync`, que digite um nome de usuário.
 
+Antes de validar, remova espaços no início/fim do texto digitado (pesquise `.trim()`).
+
 Valide as seguintes regras usando `if/else`:
 
-- o nome não pode ter espaços (pesquise o método `.includes()`);
+- o nome não pode conter nenhum espaço no meio do texto. Dica: pesquise `.replace(" ", "")` — se você remover um espaço e o tamanho do texto **mudar**, é porque havia um espaço nele;
 - o nome deve ter entre 3 e 15 caracteres (use `.length`);
 - o nome deve ser exibido sempre em minúsculas, independente de como foi digitado (pesquise `.toLowerCase()`).
-
-Antes de validar, remova espaços no início/fim do texto digitado (pesquise `.trim()`).
 
 Exiba se o nome é válido ou não e, se for válido, mostre o nome já formatado em minúsculas.
 
@@ -57,10 +59,10 @@ Peça ao usuário que digite um e-mail via `readline-sync`.
 
 Sem usar expressões regulares, valide (com `if/else`) se o e-mail:
 
-- contém o caractere `@` (pesquise `.includes()`);
-- contém um `.` (ponto) **depois** do `@` (dica: pesquise `.indexOf()`, que informa a posição de um caractere dentro da string, e compare as posições do `@` e do `.`).
+- contém o caractere `@`. Dica: use a mesma ideia de `.replace()` do exercício anterior — se ao remover o `@` o tamanho do texto mudar, ele existe;
+- contém também um `.` (ponto), usando a mesma lógica de `.replace()`.
 
-Exiba `"Valid email"` ou `"Invalid email"` de acordo com o resultado.
+Exiba `"Valid email"` se o e-mail tiver os dois caracteres, ou `"Invalid email"` caso contrário.
 
 ---
 
@@ -93,7 +95,11 @@ Peça ao usuário que digite um CEP via `readline-sync`, podendo ser digitado co
 2. Verifique se o resultado tem exatamente 8 caracteres.
 3. Verifique se o resultado é numérico (dica: pesquise a função `isNaN()` combinada com `Number()` — se `Number(valor)` resultar em `NaN`, significa que não é um número válido).
 
-Exiba se o CEP é válido, e se for, exiba ele já formatado como `00000-000` (pesquise `.slice()` para separar os 5 primeiros dígitos dos 3 últimos).
+Exiba se o CEP é válido, e se for, exiba ele já formatado como `00000-000`. Para montar essa formatação, pesquise `.charAt()` para pegar cada caractere pela posição e monte uma template string juntando os 5 primeiros dígitos, um hífen, e os 3 últimos:
+
+```javascript
+let formatted = `${cep.charAt(0)}${cep.charAt(1)}${cep.charAt(2)}${cep.charAt(3)}${cep.charAt(4)}-${cep.charAt(5)}${cep.charAt(6)}${cep.charAt(7)}`;
+```
 
 ---
 
@@ -125,7 +131,7 @@ Verifique, com `if/else`, se a senha atende a **todas** as regras abaixo:
 - tem pelo menos 8 caracteres (`.length`);
 - contém pelo menos uma letra maiúscula (dica: compare a senha com `password.toLowerCase()` — se forem diferentes, é porque existe pelo menos uma letra maiúscula);
 - contém pelo menos uma letra minúscula (mesma lógica, comparando com `.toUpperCase()`);
-- contém pelo menos um espaço em branco **não é permitido** (`.includes(" ")` deve ser `false`).
+- **não pode conter espaço em branco**. Dica: use a mesma ideia de `.replace(" ", "")` do Exercício 01 — se o tamanho mudar depois de remover o espaço, é porque havia um.
 
 Exiba `"Strong password"` se passar em todas as regras, ou `"Weak password"` caso contrário, informando qual regra falhou.
 
@@ -142,7 +148,11 @@ Peça ao usuário que digite um número de cartão de crédito com 16 dígitos, 
 **** **** **** 1234
 ```
 
-Pesquise o método `.slice()` para extrair os últimos 4 caracteres da string.
+Para pegar os últimos 4 dígitos, pesquise `.charAt()` e monte uma template string com as posições 12, 13, 14 e 15 do texto (lembrando que a contagem começa em 0):
+
+```javascript
+let lastDigits = `${card.charAt(12)}${card.charAt(13)}${card.charAt(14)}${card.charAt(15)}`;
+```
 
 ---
 
@@ -180,7 +190,7 @@ Para idades muito altas que não tenham um `case` específico, use o `default` p
 
 Peça ao usuário que digite um número de **exatamente 4 dígitos** via `readline-sync` (trate como string, ex: `"1221"`).
 
-Sem usar arrays nem laços, monte a versão invertida do número usando `.charAt()` para pegar cada caractere pela posição e uma template string para juntar na ordem contrária:
+Monte a versão invertida do número usando `.charAt()` para pegar cada caractere pela posição e uma template string para juntar na ordem contrária:
 
 ```javascript
 let reversed = `${text.charAt(3)}${text.charAt(2)}${text.charAt(1)}${text.charAt(0)}`;
@@ -192,7 +202,7 @@ Compare o número original com o invertido e exiba se ele é um **palíndromo** 
 
 # Boas práticas
 
-- Sempre converta os dados vindos de `readline.question()` para o tipo correto antes de usar em contas.
+- Sempre converta os dados vindos de `ask.question()` para o tipo correto antes de usar em contas.
 - Teste cada exercício com valores válidos e inválidos (ex: um CEP certo e um errado).
 - Pesquisar a documentação de um método antes de usá-lo é parte normal do trabalho de um programador — não tem problema não saber de cara.
-- Comente no código o que cada método novo (`.trim()`, `.includes()`, `.slice()`, etc.) está fazendo, pra fixar o aprendizado.
+- Comente no código o que cada método novo (`.trim()`, `.replace()`, `.charAt()`, etc.) está fazendo, pra fixar o aprendizado.
