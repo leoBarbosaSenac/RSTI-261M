@@ -117,7 +117,7 @@ Todo documento HTML segue essa estrutura.
 
 # 6. Entendendo cada parte
 
-## <!DOCTYPE html>
+## `<!DOCTYPE html>`
 
 Informa ao navegador que o documento utiliza a versão mais recente do HTML (HTML5).
 
@@ -125,7 +125,7 @@ Ele deve ser a primeira linha do arquivo.
 
 ---
 
-## <html>
+## `<html>`
 
 É a tag principal.
 
@@ -133,7 +133,7 @@ Todo o conteúdo da página deve estar dentro dela.
 
 ---
 
-## <head>
+## `<head>`
 
 Contém informações sobre a página que normalmente não aparecem diretamente para o usuário.
 
@@ -147,7 +147,7 @@ Exemplos:
 
 ---
 
-## <title>
+## `<title>`
 
 Define o título que aparece na aba do navegador.
 
@@ -159,7 +159,7 @@ Exemplo:
 
 ---
 
-## <body>
+## `<body>`
 
 Contém todo o conteúdo visível da página.
 
