@@ -219,28 +219,4 @@ Crie uma seção da página utilizando uma `<div>` e aplique:
 Se desejar, pesquise outras propriedades para tornar essa seção ainda mais bonita, como bordas arredondadas, sombras, gradientes ou efeitos de destaque.
 
 ---
-
-# Critérios de Avaliação
-
-Serão avaliados:
-
-- Estrutura correta do HTML;
-- Ligação correta entre HTML e CSS;
-- Organização e indentação do código;
-- Utilização dos seletores;
-- Aplicação das propriedades vistas em aula;
-- Criatividade na construção do site;
-- Capricho na apresentação visual.
-
----
-
-# Entrega
-
-Entregue a pasta contendo:
-
-- `index.html`
-- `style.css`
-
-Os dois arquivos devem estar funcionando corretamente e vinculados entre si.
-
 > **Divirta-se!** O objetivo deste exercício é colocar em prática os conceitos aprendidos e explorar sua criatividade. Não tenha medo de testar, pesquisar e experimentar novas ideias. É assim que bons desenvolvedores aprendem.
