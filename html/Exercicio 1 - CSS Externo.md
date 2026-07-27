@@ -138,7 +138,7 @@ Utilize também:
 
 # Escolha um Tema
 
-Para deixar o exercício mais divertido, escolha **um** dos temas abaixo (ou proponha outro ao professor).
+Para deixar o exercício mais interessante para o coitado do professor, escolha **um** dos temas abaixo (ou proponha outro).
 
 ---
 
