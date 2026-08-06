@@ -6,8 +6,6 @@ Neste exercício, você deverá desenvolver uma **Landing Page** para um escrit�
 
 O foco da atividade é colocar em prática os conceitos estudados até o momento, principalmente a construção de layouts utilizando **Flexbox**.
 
-> **Importante:** Não é necessário implementar funcionalidades. O objetivo é desenvolver uma interface organizada, bonita e bem estruturada.
-
 ---
 
 # Antes de Começar
