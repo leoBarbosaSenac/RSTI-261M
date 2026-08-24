@@ -512,3 +512,285 @@ botao.addEventListener("mouseenter", function() {
     console.log("Mouse entrou!");
 });
 ```
+
+
+# Exercícios — JavaScript no Front-End
+
+Estes exercícios têm como objetivo praticar a interação entre **JavaScript, HTML e CSS**, utilizando os conceitos de DOM e eventos.
+
+---
+
+# 1. Encontrando elementos
+
+Crie uma página com:
+
+```html
+<h1 id="titulo">Meu título</h1>
+
+<p id="texto">Um texto qualquer.</p>
+
+<button id="botao">Clique aqui</button>
+```
+
+No JavaScript:
+
+1. Encontre o `<h1>` usando `querySelector()`.
+2. Encontre o `<p>` usando `querySelector()`.
+3. Encontre o `<button>` usando `querySelector()`.
+4. Mostre os três elementos no `console.log()`.
+
+**Objetivo:** praticar `document.querySelector()`.
+
+---
+
+# 2. Alterando textos
+
+Utilize a mesma página do exercício anterior.
+
+Faça o JavaScript alterar:
+
+- O título para `"Bem-vindo ao JavaScript!"`.
+- O texto para `"Esse texto foi alterado pelo JavaScript."`.
+- O texto do botão para `"Novo botão"`.
+
+**Objetivo:** praticar `textContent`.
+
+---
+
+# 3. Perfil dinâmico
+
+Crie:
+
+```html
+<h1 id="nome">Nome</h1>
+
+<p id="idade">Idade</p>
+
+<p id="cidade">Cidade</p>
+```
+
+No JavaScript, crie:
+
+```javascript
+const nome = "Maria";
+const idade = 18;
+const cidade = "São Leopoldo";
+```
+
+Utilize essas variáveis para preencher os elementos da página.
+
+O resultado deve ser semelhante a:
+
+```text
+Maria
+18 anos
+São Leopoldo
+```
+
+**Objetivo:** juntar variáveis + `querySelector()` + `textContent`.
+
+---
+
+# 4. Trocando uma imagem
+
+Crie:
+
+```html
+<img id="imagem" src="img/gato.jpg" alt="Gato">
+
+<button id="botao">Trocar imagem</button>
+```
+
+Quando o botão for clicado, altere a imagem para outra imagem.
+
+Também altere o `alt`.
+
+**Objetivo:** trabalhar com atributos e eventos.
+
+---
+
+# 5. Investigando atributos
+
+Crie uma imagem:
+
+```html
+<img 
+    id="imagem"
+    src="img/gato.jpg"
+    alt="Imagem de um gato"
+>
+```
+
+No JavaScript:
+
+1. Mostre o `src` atual no console.
+2. Mostre o `alt` atual no console.
+3. Altere o `src` usando `setAttribute()`.
+4. Altere o `alt` usando `setAttribute()`.
+
+**Objetivo:** praticar `getAttribute()` e `setAttribute()`.
+
+---
+
+# 6. Meu primeiro botão
+
+Crie:
+
+```html
+<h1 id="mensagem">Ainda não aconteceu nada...</h1>
+
+<button id="botao">
+    Clique aqui
+</button>
+```
+
+Quando o usuário clicar no botão, altere o `<h1>` para:
+
+```text
+Você clicou no botão!
+```
+
+**Objetivo:** entender o ciclo:
+
+```text
+selecionar elemento
+        ↓
+escutar evento
+        ↓
+executar função
+        ↓
+alterar elemento
+```
+
+---
+
+# 7. Três botões
+
+Crie:
+
+```html
+<h1 id="mensagem">Escolha uma opção</h1>
+
+<button id="btn1">Olá</button>
+<button id="btn2">Tchau</button>
+<button id="btn3">JavaScript</button>
+```
+
+Cada botão deve apresentar uma mensagem diferente no `<h1>`.
+
+Por exemplo:
+
+```text
+Olá → "Olá, usuário!"
+
+Tchau → "Até mais!"
+
+JavaScript → "Estou aprendendo JavaScript!"
+```
+
+**Objetivo:** trabalhar com vários elementos e vários eventos.
+
+---
+
+# 8. Botão contador
+
+Crie:
+
+```html
+<h1 id="contador">0</h1>
+
+<button id="diminuir">-</button>
+<button id="aumentar">+</button>
+```
+
+O botão `+` deve aumentar o número.
+
+O botão `-` deve diminuir.
+
+Exemplo:
+
+```text
+      0
+
+[ - ] [ + ]
+```
+
+Depois de clicar três vezes no `+`:
+
+```text
+      3
+
+[ - ] [ + ]
+```
+
+**Objetivo:** juntar:
+
+- variável;
+- evento;
+- operador;
+- `textContent`.
+
+---
+
+# 9. Mouse entrou, mouse saiu
+
+Crie:
+
+```html
+<div id="quadrado">
+    Passe o mouse aqui
+</div>
+```
+
+Quando o mouse entrar no elemento, altere o texto para:
+
+```text
+O mouse entrou!
+```
+
+Quando o mouse sair:
+
+```text
+O mouse saiu!
+```
+
+Utilize:
+
+```javascript
+mouseenter
+mouseleave
+```
+
+**Objetivo:** entender que existem diferentes tipos de eventos.
+
+---
+
+# 10. Teclando
+
+Crie:
+
+```html
+<input id="campo" type="text">
+
+<p id="resultado"></p>
+```
+
+Utilize o evento `input`.
+
+Enquanto o usuário digita, o `<p>` deve mostrar exatamente o que está sendo digitado.
+
+Por exemplo:
+
+```text
+Campo:
+
+[Leonardo]
+
+Resultado:
+
+Leonardo
+```
+
+Se apagar o texto, o resultado também deverá ficar vazio.
+
+**Objetivo:** praticar `input` e `.value`.
