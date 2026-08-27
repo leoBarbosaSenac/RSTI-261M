@@ -1,4 +1,4 @@
-# Exercícios: Validação da Seção de Contato (versão simples)
+# Exercícios: Validação da Seção de Contato
 
 Vocês já têm o formulário de contato pronto em HTML/CSS. Agora vamos usar JavaScript para checar se os campos foram preenchidos direito antes de "enviar".
 
