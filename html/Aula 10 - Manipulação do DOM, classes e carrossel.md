@@ -660,245 +660,129 @@ Próximo →
 
 ------------------------------------------------------------------------
 
-# 16. Criando uma animação de movimento
+# 16. Animação do carrossel — passo a passo
 
-Até agora, aprendemos a **mostrar e esconder elementos** utilizando
-classes e `display: none`.
+Agora que já entendemos `classList`, `display: none` e a estrutura de um
+carrossel, vamos aprender a fazer os slides **deslizarem**.
 
-Agora vamos aprender outra forma de mudar a posição de um elemento: o
-`transform`.
+Vamos construir a animação aos poucos. A ideia é que você possa copiar cada
+parte, testar no navegador e só depois continuar.
 
-A diferença é importante:
+---
 
--   `display: none` → esconde o elemento.
--   `transform` → pode mover, girar, aumentar, diminuir ou transformar o
-    elemento.
--   `transition` → faz a mudança acontecer de forma gradual, criando uma
-    animação.
+## Passo 1 — Conhecendo o `transform`
 
-No nosso carrossel, vamos utilizar principalmente:
+A propriedade `transform` permite alterar visualmente um elemento.
 
-``` css
-transform: translateX();
-```
+Para mover um elemento para a direita:
 
-e:
-
-``` css
-transition: transform 0.5s;
-```
-
-------------------------------------------------------------------------
-
-# 17. O que é `transform`?
-
-A propriedade `transform` permite modificar visualmente um elemento.
-
-Por exemplo:
-
-``` css
+```css
 transform: translateX(100px);
 ```
 
-Isso movimenta o elemento **100 pixels para a direita**.
+Para mover para a esquerda:
 
-Podemos também utilizar valores negativos:
-
-``` css
+```css
 transform: translateX(-100px);
 ```
 
-Nesse caso, o elemento é movimentado **100 pixels para a esquerda**.
+O `X` representa o movimento horizontal.
 
-Podemos imaginar:
+Também existe o `Y`, usado para movimentos verticais:
 
-``` text
-                direita
-                   →
-        ┌───────────────┐
-        │    elemento   │
-        └───────────────┘
-                   ←
-                esquerda
-```
-
-O `X` representa o movimento **horizontal**.
-
-Também existe:
-
-``` css
-transform: translateY();
-```
-
-O `Y` representa o movimento **vertical**.
-
-Por exemplo:
-
-``` css
+```css
 transform: translateY(100px);
 ```
 
-move o elemento para baixo.
+### Teste
 
-E:
+Crie uma `div`:
 
-``` css
-transform: translateY(-100px);
+```html
+<div class="caixa">
+    Minha caixa
+</div>
 ```
 
-move o elemento para cima.
+E coloque no CSS:
 
-------------------------------------------------------------------------
+```css
+.caixa {
+    transform: translateX(100px);
+}
+```
 
-# 18. Entendendo `translateX(%)`
+Abra a página e observe o que aconteceu.
 
-No carrossel, vamos trabalhar com porcentagem em vez de pixels.
+Agora teste:
 
-Por exemplo:
+```css
+.caixa {
+    transform: translateX(-100px);
+}
+```
 
-``` css
+A caixa deve se mover para o outro lado.
+
+---
+
+## Passo 2 — Usando porcentagem
+
+No carrossel, em vez de trabalhar com pixels, vamos usar porcentagem.
+
+```css
 transform: translateX(-100%);
 ```
 
-O `%` é calculado em relação ao próprio tamanho do elemento que está
-sendo movimentado.
+Podemos pensar assim:
 
-Imagine um slide com 300 pixels de largura:
-
-``` text
-┌──────────────────────────────┐
-│            SLIDE             │
-│          300 pixels          │
-└──────────────────────────────┘
+```text
+0%     → posição inicial
+-100%  → move uma largura para a esquerda
+-200%  → move duas larguras para a esquerda
 ```
 
-Quando usamos:
+Isso será útil porque cada slide ocupará `100%` da largura do carrossel.
 
-``` css
-translateX(-100%);
-```
+---
 
-estamos dizendo:
+## Passo 3 — Criando a transição
 
-> Mova este elemento para a esquerda uma distância equivalente a 100% da
-> sua própria largura.
+Se simplesmente mudarmos o `transform`, o movimento acontece imediatamente.
 
-Então:
+Para deixar a mudança gradual, usamos `transition`:
 
-``` text
-0%
-
-┌───────────────┐
-│    Slide 1    │
-└───────────────┘
-
-
--100%
-
-              ┌───────────────┐
-              │    Slide 1    │
-              └───────────────┘
-
-
--200%
-
-                            ┌───────────────┐
-                            │    Slide 1    │
-                            └───────────────┘
-```
-
-No carrossel, isso será utilizado para fazer os slides mudarem de
-posição.
-
-------------------------------------------------------------------------
-
-# 19. Por que usar `overflow: hidden`?
-
-Para criar o efeito de carrossel, precisamos imaginar que existe uma
-**janela**.
-
-O usuário deve enxergar apenas uma parte dos slides.
-
-Por exemplo:
-
-``` text
-                 JANELA
-        ┌─────────────────────┐
-        │      Slide 1        │
-        └─────────────────────┘
-
-Por trás da janela existem:
-
-        Slide 1     Slide 2     Slide 3
-```
-
-Para esconder o que estiver fora da janela, usamos:
-
-``` css
-.carrossel {
-    overflow: hidden;
+```css
+.caixa {
+    transition: transform 0.5s;
 }
 ```
 
-`overflow: hidden` significa:
+Agora, se o `transform` mudar, o navegador fará uma transição durante
+meio segundo.
 
-> Tudo que ultrapassar os limites desse elemento não será mostrado.
+Podemos combinar os dois:
 
-Isso é fundamental para o nosso carrossel.
-
-Sem `overflow: hidden`, poderíamos enxergar os outros slides fora da
-área principal.
-
-------------------------------------------------------------------------
-
-# 20. Colocando os slides lado a lado
-
-Agora precisamos fazer com que os slides fiquem **um ao lado do outro**.
-
-Para isso, utilizamos:
-
-``` css
-.slides {
-    display: flex;
+```css
+.caixa {
+    transition: transform 0.5s;
+    transform: translateX(100px);
 }
 ```
 
-E cada slide deverá ocupar toda a largura disponível:
+### Importante
 
-``` css
-.slide {
-    min-width: 100%;
-}
-```
+`transform` **faz a mudança de posição**.
 
-Imagine que temos três slides:
+`transition` **faz essa mudança acontecer gradualmente**.
 
-``` text
-┌─────────┐ ┌─────────┐ ┌─────────┐
-│ Slide 1 │ │ Slide 2 │ │ Slide 3 │
-└─────────┘ └─────────┘ └─────────┘
-```
+---
 
-Eles ficam lado a lado dentro do elemento `.slides`.
+## Passo 4 — Preparando o carrossel
 
-Porém, o `.carrossel` funciona como uma janela:
+Agora vamos montar a estrutura que será animada.
 
-``` text
-┌─────────────────┐
-│     Slide 1     │
-└─────────────────┘
-```
-
-O Slide 2 e o Slide 3 estão ali, mas estão fora da área visível.
-
-------------------------------------------------------------------------
-
-# 21. A estrutura HTML do carrossel
-
-Para trabalhar com `translateX`, vamos utilizar um elemento interno
-chamado `.slides`.
-
-``` html
+```html
 <div class="carrossel">
 
     <div class="slides">
@@ -922,299 +806,172 @@ chamado `.slides`.
 
 </div>
 
-<button id="anterior">
-    Anterior
-</button>
-
-<button id="proximo">
-    Próximo
-</button>
+<button id="anterior">Anterior</button>
+<button id="proximo">Próximo</button>
 ```
 
-Observe a diferença entre `.carrossel` e `.slides`.
+Perceba que temos dois elementos importantes:
 
-### `.carrossel`
+```text
+.carrossel
+    ↓
+é a janela que mostra os slides
 
-É a **janela**.
-
-``` text
-┌─────────────────────┐
-│                     │
-│      JANELA         │
-│                     │
-└─────────────────────┘
+.slides
+    ↓
+contém e movimenta os slides
 ```
 
-Por isso usamos:
+---
 
-``` css
-overflow: hidden;
+## Passo 5 — Colocando os slides lado a lado
+
+Primeiro, vamos fazer `.slides` utilizar `flex`.
+
+```css
+.slides {
+    display: flex;
+}
 ```
 
-### `.slides`
+Agora os slides ficam lado a lado:
 
-É o elemento que contém todos os slides.
-
-``` text
+```text
 ┌─────────┐ ┌─────────┐ ┌─────────┐
 │ Slide 1 │ │ Slide 2 │ │ Slide 3 │
 └─────────┘ └─────────┘ └─────────┘
 ```
 
-É o `.slides` que será movimentado.
+Cada slide precisa ocupar toda a largura do carrossel:
 
-Essa é uma das partes mais importantes para entender o funcionamento do
-carrossel.
+```css
+.slide {
+    min-width: 100%;
+}
+```
 
-------------------------------------------------------------------------
+---
 
-# 22. CSS básico do carrossel
+## Passo 6 — Criando a "janela"
 
-Vamos começar somente com o posicionamento.
+Agora vamos definir o tamanho do carrossel e esconder tudo que estiver fora
+dele.
 
-``` css
+```css
 .carrossel {
     width: 300px;
     height: 200px;
-
     overflow: hidden;
 }
+```
 
+`overflow: hidden` significa:
+
+> Tudo que ultrapassar os limites do carrossel não será mostrado.
+
+Isso é o que transforma o carrossel em uma espécie de **janela**.
+
+---
+
+## Passo 7 — Testando o movimento manualmente
+
+Antes de colocar JavaScript, vamos testar o movimento no CSS.
+
+Coloque:
+
+```css
 .slides {
     display: flex;
-}
-
-.slide {
-    min-width: 100%;
-    height: 200px;
-}
-```
-
-Agora temos:
-
-``` text
-              CARROSSEL
-        ┌─────────────────┐
-        │                 │
-        │    Slide 1      │
-        │                 │
-        └─────────────────┘
-
-        Slide 2 e Slide 3
-        estão ao lado.
-```
-
-------------------------------------------------------------------------
-
-# 23. Movimentando o `.slides`
-
-Agora podemos testar o `translateX`.
-
-Se fizermos:
-
-``` css
-.slides {
     transform: translateX(-100%);
 }
 ```
 
-todo o conjunto de slides será movido para a esquerda.
+O segundo slide deverá aparecer na janela.
 
-Antes:
+Agora teste:
 
-``` text
-┌─────────┐ ┌─────────┐ ┌─────────┐
-│ Slide 1 │ │ Slide 2 │ │ Slide 3 │
-└─────────┘ └─────────┘ └─────────┘
-     ↑
-  janela
+```css
+transform: translateX(-200%);
 ```
 
-Depois de `translateX(-100%)`:
+O terceiro slide deverá aparecer.
 
-``` text
-          ┌─────────┐ ┌─────────┐
-          │ Slide 2 │ │ Slide 3 │
-          └─────────┘ └─────────┘
-     ↑
-  janela
+Teste também:
+
+```css
+transform: translateX(0%);
 ```
 
-O Slide 2 passa a ocupar a janela.
+O primeiro slide volta a aparecer.
 
-Por isso:
+### Resumindo
 
-``` css
-translateX(0%);
+```text
+translateX(0%)    → Slide 1
+
+translateX(-100%) → Slide 2
+
+translateX(-200%) → Slide 3
 ```
 
-mostra o primeiro slide.
+Se isso funcionar, podemos passar para o JavaScript.
 
-``` css
-translateX(-100%);
-```
+---
 
-mostra o segundo.
+## Passo 8 — Adicionando a animação
 
-``` css
-translateX(-200%);
-```
+Agora vamos colocar `transition` no elemento `.slides`.
 
-mostra o terceiro.
-
-------------------------------------------------------------------------
-
-# 24. O que é `transition`?
-
-Até agora, quando alteramos:
-
-``` css
-transform: translateX();
-```
-
-o movimento acontece imediatamente.
-
-Por exemplo:
-
-``` text
-Slide 1
-
-        ↓ mudança instantânea
-
-Slide 2
-```
-
-Isso não parece uma animação.
-
-Para fazer o navegador criar uma transição entre a posição antiga e a
-nova posição, utilizamos:
-
-``` css
-transition: transform 0.5s;
-```
-
-Por exemplo:
-
-``` css
+```css
 .slides {
     display: flex;
-    transition: transform 0.5s;
+    transition: transform 0.5s ease;
 }
 ```
 
-Agora, quando o `transform` mudar, o navegador fará uma transição
-durante meio segundo.
+A partir de agora, sempre que o `transform` mudar, os slides irão se mover
+gradualmente.
 
-Visualmente:
+---
 
-``` text
-Sem transition:
+## Passo 9 — Criando a variável do slide atual
 
-Slide 1 ─────────────────────── Slide 2
+Agora precisamos informar ao JavaScript qual slide está sendo mostrado.
 
-
-Com transition:
-
-Slide 1 ──→ ──→ ──→ ──→ Slide 2
-```
-
-A propriedade:
-
-``` css
-transition: transform 0.5s;
-```
-
-pode ser entendida assim:
-
-``` text
-transition
-    ↓
-quero uma mudança gradual
-
-transform
-    ↓
-qual propriedade será animada?
-
-0.5s
-    ↓
-quanto tempo a mudança deve durar?
-```
-
-------------------------------------------------------------------------
-
-# 25. `transition` não movimenta o elemento
-
-Essa diferença é muito importante.
-
-A propriedade:
-
-``` css
-transition
-```
-
-**não movimenta o elemento sozinha**.
-
-Ela apenas determina **como uma mudança acontecerá**.
-
-Quem movimenta é:
-
-``` css
-transform: translateX();
-```
-
-Por exemplo:
-
-``` css
-.slides {
-    transition: transform 0.5s;
-    transform: translateX(-100%);
-}
-```
-
-Aqui temos duas funções diferentes:
-
-``` text
-transform
-    ↓
-define a nova posição
-
-
-transition
-    ↓
-faz a mudança até essa posição acontecer gradualmente
-```
-
-Podemos comparar com uma porta:
-
-``` text
-transform
-→ "A porta deve ficar aberta."
-
-transition
-→ "A porta deve abrir lentamente."
-```
-
-------------------------------------------------------------------------
-
-# 26. Controlando o `translateX` com JavaScript
-
-Agora vamos fazer o JavaScript controlar a posição.
-
-Primeiro selecionamos o elemento `.slides`:
-
-``` javascript
-const slides = document.querySelector(".slides");
-```
-
-Também precisamos saber em qual slide estamos:
-
-``` javascript
+```javascript
 let slideAtual = 0;
 ```
 
-Agora podemos criar uma função para atualizar a posição:
+A contagem começa em `0`.
 
-``` javascript
+Então:
+
+```text
+0 → Slide 1
+1 → Slide 2
+2 → Slide 3
+```
+
+---
+
+## Passo 10 — Selecionando os elementos
+
+Vamos selecionar o elemento `.slides` e os dois botões:
+
+```javascript
+const slides = document.querySelector(".slides");
+
+const anterior = document.querySelector("#anterior");
+const proximo = document.querySelector("#proximo");
+```
+
+---
+
+## Passo 11 — Criando a função que movimenta os slides
+
+Agora vamos criar uma função responsável por atualizar a posição.
+
+```javascript
 function atualizarCarrossel() {
 
     slides.style.transform =
@@ -1223,133 +980,37 @@ function atualizarCarrossel() {
 }
 ```
 
-Vamos entender essa linha com calma:
+Essa função transforma o número do slide em uma posição.
 
-``` javascript
-slideAtual * 100
-```
+Por exemplo:
 
-Se:
-
-``` text
+```text
 slideAtual = 0
-```
-
-temos:
-
-``` text
 0 × 100 = 0
-```
-
-Então:
-
-``` css
 translateX(0%)
 ```
 
-------------------------------------------------------------------------
-
-Se:
-
-``` text
+```text
 slideAtual = 1
-```
-
-temos:
-
-``` text
 1 × 100 = 100
-```
-
-Então:
-
-``` css
 translateX(-100%)
 ```
 
-------------------------------------------------------------------------
-
-Se:
-
-``` text
+```text
 slideAtual = 2
-```
-
-temos:
-
-``` text
 2 × 100 = 200
-```
-
-Então:
-
-``` css
 translateX(-200%)
 ```
 
-------------------------------------------------------------------------
+Ou seja, o JavaScript decide **qual posição** o CSS deve utilizar.
 
-# 27. Entendendo a expressão completa
+---
 
-Observe:
+## Passo 12 — Fazendo o botão Próximo funcionar
 
-``` javascript
-`translateX(-${slideAtual * 100}%)`
-```
+Agora vamos fazer o botão avançar.
 
-Essa linha está montando um texto para o CSS.
-
-Se:
-
-``` javascript
-slideAtual = 0;
-```
-
-o resultado será:
-
-``` css
-translateX(-0%)
-```
-
-Se:
-
-``` javascript
-slideAtual = 1;
-```
-
-o resultado será:
-
-``` css
-translateX(-100%)
-```
-
-Se:
-
-``` javascript
-slideAtual = 2;
-```
-
-o resultado será:
-
-``` css
-translateX(-200%)
-```
-
-Portanto, o JavaScript controla o `transform`.
-
-------------------------------------------------------------------------
-
-# 28. Fazendo o botão Próximo funcionar
-
-Primeiro selecionamos o botão:
-
-``` javascript
-const proximo = document.querySelector("#proximo");
-```
-
-Depois criamos o evento:
-
-``` javascript
+```javascript
 proximo.addEventListener("click", function () {
 
     slideAtual++;
@@ -1359,86 +1020,53 @@ proximo.addEventListener("click", function () {
 });
 ```
 
-Quando o botão for clicado:
+O caminho é:
 
-``` text
-CLIQUE
-  ↓
+```text
+Clique no botão
+      ↓
 slideAtual++
-  ↓
-slideAtual muda
-  ↓
+      ↓
 atualizarCarrossel()
-  ↓
+      ↓
 novo translateX()
-  ↓
-CSS movimenta os slides
-  ↓
+      ↓
 transition anima o movimento
 ```
 
-Esse fluxo é muito importante.
+Teste agora no navegador.
 
-------------------------------------------------------------------------
+O botão deve fazer os slides avançarem.
 
-# 29. Controlando o limite dos slides
+---
 
-Imagine que temos:
+## Passo 13 — Impedindo que passe do último slide
 
-``` text
-Slide 1 → posição 0
-Slide 2 → posição 1
-Slide 3 → posição 2
+Temos um problema.
+
+Se existem três slides:
+
+```text
+0 → Slide 1
+1 → Slide 2
+2 → Slide 3
 ```
 
-Se clicarmos em Próximo quando estamos no Slide 3:
+Depois do Slide 3, `slideAtual` ficará igual a `3`.
 
-``` javascript
-slideAtual++;
-```
+Esse slide não existe.
 
-teremos:
+Podemos verificar isso com:
 
-``` text
-slideAtual = 3
-```
-
-Mas não existe Slide 4.
-
-Precisamos verificar isso:
-
-``` javascript
-if (slideAtual >= 3) {
-    slideAtual = 0;
-}
-```
-
-Porém, não é uma boa ideia escrever `3` diretamente.
-
-Podemos usar:
-
-``` javascript
-slides.children.length
-```
-
-para descobrir quantos slides existem.
-
-Por exemplo:
-
-``` javascript
+```javascript
 if (slideAtual >= slides.children.length) {
     slideAtual = 0;
 }
 ```
 
-Assim, se adicionarmos mais slides no futuro, o código continuará
-funcionando.
+O botão Próximo fica assim:
 
-------------------------------------------------------------------------
-
-# 30. Código completo do botão Próximo
-
-``` javascript
+```javascript
 proximo.addEventListener("click", function () {
 
     slideAtual++;
@@ -1452,39 +1080,15 @@ proximo.addEventListener("click", function () {
 });
 ```
 
-A ordem é importante:
+Agora, ao passar do último slide, voltamos para o primeiro.
 
-``` text
-1. Aumenta o número do slide
-        ↓
-2. Verifica se passou do último
-        ↓
-3. Se passou, volta para 0
-        ↓
-4. Atualiza o movimento
-```
+---
 
-------------------------------------------------------------------------
+## Passo 14 — Fazendo o botão Anterior funcionar
 
-# 31. Fazendo o botão Anterior funcionar
+Agora faremos o caminho contrário.
 
-Agora precisamos fazer o contrário.
-
-Selecionamos o botão:
-
-``` javascript
-const anterior = document.querySelector("#anterior");
-```
-
-Quando clicar:
-
-``` javascript
-slideAtual--;
-```
-
-Depois atualizamos o carrossel:
-
-``` javascript
+```javascript
 anterior.addEventListener("click", function () {
 
     slideAtual--;
@@ -1494,83 +1098,43 @@ anterior.addEventListener("click", function () {
 });
 ```
 
-Mas existe um problema.
+Mas existe outro problema.
 
 Se estivermos no primeiro slide:
 
-``` text
+```text
 slideAtual = 0
 ```
 
 e fizermos:
 
-``` javascript
+```javascript
 slideAtual--;
 ```
 
 teremos:
 
-``` text
+```text
 slideAtual = -1
 ```
 
-Esse slide não existe.
+Esse slide também não existe.
 
-------------------------------------------------------------------------
+---
 
-# 32. Voltando do primeiro para o último
+## Passo 15 — Voltando do primeiro para o último
 
-Podemos verificar:
+Vamos verificar se `slideAtual` ficou menor que `0`:
 
-``` javascript
+```javascript
 if (slideAtual < 0) {
     slideAtual = slides.children.length - 1;
 }
 ```
 
-Por que usamos `- 1`?
+O código completo fica:
 
-Porque a contagem começa em zero.
-
-Se temos três slides:
-
-``` text
-Slide 1 → índice 0
-Slide 2 → índice 1
-Slide 3 → índice 2
-```
-
-Então:
-
-``` javascript
-slides.children.length
-```
-
-retorna:
-
-``` text
-3
-```
-
-Mas o último índice é:
-
-``` text
-3 - 1 = 2
-```
-
-Por isso:
-
-``` javascript
-slides.children.length - 1
-```
-
-representa o último slide.
-
-------------------------------------------------------------------------
-
-# 33. Código completo do botão Anterior
-
-``` javascript
+```javascript
 anterior.addEventListener("click", function () {
 
     slideAtual--;
@@ -1586,19 +1150,17 @@ anterior.addEventListener("click", function () {
 
 Agora podemos navegar nos dois sentidos:
 
-``` text
-              Anterior
-                 ←
+```text
+← Anterior
 
 Slide 1 → Slide 2 → Slide 3
-                 →
 
-              Próximo
+Próximo →
 ```
 
 Se estivermos no Slide 1 e clicarmos em Anterior:
 
-``` text
+```text
 Slide 1
    ↓
 Slide 3
@@ -1606,29 +1168,59 @@ Slide 3
 
 Se estivermos no Slide 3 e clicarmos em Próximo:
 
-``` text
+```text
 Slide 3
    ↓
 Slide 1
 ```
 
-------------------------------------------------------------------------
+---
 
-# 34. CSS completo do carrossel
+## Passo 16 — Código completo
 
-Agora podemos juntar tudo:
+Depois de testar cada etapa, podemos juntar tudo.
 
-``` css
+### HTML
+
+```html
+<div class="carrossel">
+
+    <div class="slides">
+
+        <div class="slide">
+            <h2>Slide 1</h2>
+            <p>Conteúdo do primeiro slide.</p>
+        </div>
+
+        <div class="slide">
+            <h2>Slide 2</h2>
+            <p>Conteúdo do segundo slide.</p>
+        </div>
+
+        <div class="slide">
+            <h2>Slide 3</h2>
+            <p>Conteúdo do terceiro slide.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<button id="anterior">Anterior</button>
+<button id="proximo">Próximo</button>
+```
+
+### CSS
+
+```css
 .carrossel {
     width: 300px;
     height: 200px;
-
     overflow: hidden;
 }
 
 .slides {
     display: flex;
-
     transition: transform 0.5s ease;
 }
 
@@ -1643,41 +1235,9 @@ Agora podemos juntar tudo:
 }
 ```
 
-Observe principalmente:
+### JavaScript
 
-``` css
-.carrossel {
-    overflow: hidden;
-}
-```
-
-O carrossel funciona como uma janela.
-
-E:
-
-``` css
-.slides {
-    display: flex;
-}
-```
-
-Coloca os slides lado a lado.
-
-E:
-
-``` css
-.slides {
-    transition: transform 0.5s ease;
-}
-```
-
-Cria a animação quando o `transform` mudar.
-
-------------------------------------------------------------------------
-
-# 35. JavaScript completo do carrossel
-
-``` javascript
+```javascript
 const slides = document.querySelector(".slides");
 
 const anterior = document.querySelector("#anterior");
@@ -1717,37 +1277,31 @@ anterior.addEventListener("click", function () {
 });
 ```
 
-------------------------------------------------------------------------
+---
 
-# 36. O caminho completo do carrossel
+## Passo 17 — Entendendo o funcionamento completo
 
-Agora podemos entender tudo em conjunto.
+Quando clicamos em **Próximo**, acontece:
 
-Quando o usuário clica em **Próximo**:
-
-``` text
-                 CLIQUE
-                    ↓
-             botão Próximo
-                    ↓
-             slideAtual++
-                    ↓
-       verifica se chegou ao final
-                    ↓
-         atualizarCarrossel()
-                    ↓
-             calcula posição
-                    ↓
-       translateX(-100%, -200%...)
-                    ↓
-             transition
-                    ↓
-          movimento do slide
+```text
+CLIQUE
+  ↓
+slideAtual++
+  ↓
+verifica se passou do último
+  ↓
+atualizarCarrossel()
+  ↓
+calcula o translateX
+  ↓
+CSS muda a posição
+  ↓
+transition anima o movimento
 ```
 
 Por exemplo:
 
-``` text
+```text
 Clique 1
    ↓
 slideAtual = 1
@@ -1759,7 +1313,7 @@ Slide 2 aparece
 
 Depois:
 
-``` text
+```text
 Clique 2
    ↓
 slideAtual = 2
@@ -1771,7 +1325,7 @@ Slide 3 aparece
 
 Depois:
 
-``` text
+```text
 Clique 3
    ↓
 slideAtual = 3
@@ -1785,159 +1339,71 @@ translateX(0%)
 Slide 1 aparece
 ```
 
-------------------------------------------------------------------------
+---
 
-# 37. Diferença entre o carrossel com `display: none` e o carrossel com `translateX`
+## O que você precisa lembrar
 
-Existem duas formas diferentes de pensar nesse componente.
+Para criar este carrossel, os principais conceitos são:
 
-### Usando `display: none`
+```text
+display: flex
+    ↓
+coloca os slides lado a lado
 
-``` css
-.slide {
-    display: none;
-}
+min-width: 100%
+    ↓
+faz cada slide ocupar a janela
 
-.slide.ativo {
-    display: block;
-}
+overflow: hidden
+    ↓
+esconde o que estiver fora da janela
+
+transform: translateX()
+    ↓
+move os slides
+
+transition
+    ↓
+anima o movimento
+
+slideAtual
+    ↓
+guarda qual slide está sendo mostrado
+
+addEventListener()
+    ↓
+detecta os cliques
+
+if
+    ↓
+impede que o índice saia dos limites
 ```
 
-Nesse caso:
+A melhor forma de aprender é **não copiar tudo de uma vez**.
 
-``` text
-Slide 1 → aparece
+Faça os testes nesta ordem:
 
-Slide 2 → desaparece
-
-Slide 3 → desaparece
+```text
+1. Testar translateX()
+        ↓
+2. Criar os slides
+        ↓
+3. Colocar os slides lado a lado
+        ↓
+4. Criar a janela com overflow: hidden
+        ↓
+5. Testar translateX(-100%) e -200%
+        ↓
+6. Adicionar transition
+        ↓
+7. Criar slideAtual
+        ↓
+8. Fazer Próximo funcionar
+        ↓
+9. Fazer Anterior funcionar
+        ↓
+10. Integrar o carrossel à calculadora
 ```
-
-Quando mudamos de slide, um elemento desaparece e outro aparece.
-
-### Usando `translateX`
-
-Os slides ficam lado a lado:
-
-``` text
-Slide 1 | Slide 2 | Slide 3
-```
-
-E movimentamos o conjunto:
-
-``` text
-0%
-
-[Slide 1] Slide 2  Slide 3
-
-
--100%
-
- Slide 1 [Slide 2] Slide 3
-
-
--200%
-
- Slide 1  Slide 2 [Slide 3]
-```
-
-Com:
-
-``` css
-transition: transform 0.5s ease;
-```
-
-essa mudança de posição vira uma animação.
-
-Para um carrossel com efeito de "deslizar", `translateX` é uma solução
-mais adequada.
-
-------------------------------------------------------------------------
-
-# 38. O que cada parte do código faz?
-
-É importante conseguir olhar para o código e saber a função de cada
-parte.
-
-### `display: flex`
-
-``` css
-.slides {
-    display: flex;
-}
-```
-
-Coloca os slides lado a lado.
-
-### `min-width: 100%`
-
-``` css
-.slide {
-    min-width: 100%;
-}
-```
-
-Faz cada slide ocupar toda a largura da janela.
-
-### `overflow: hidden`
-
-``` css
-.carrossel {
-    overflow: hidden;
-}
-```
-
-Esconde as partes que ficam fora da janela.
-
-### `transform: translateX()`
-
-``` css
-transform: translateX(-100%);
-```
-
-Move os slides horizontalmente.
-
-### `transition`
-
-``` css
-transition: transform 0.5s ease;
-```
-
-Faz o movimento acontecer gradualmente.
-
-### `slideAtual`
-
-``` javascript
-let slideAtual = 0;
-```
-
-Guarda qual slide está sendo exibido.
-
-### `slideAtual++`
-
-``` javascript
-slideAtual++;
-```
-
-Avança um slide.
-
-### `slideAtual--`
-
-``` javascript
-slideAtual--;
-```
-
-Volta um slide.
-
-### `addEventListener`
-
-``` javascript
-proximo.addEventListener("click", function () {
-```
-
-Faz o código ser executado quando o usuário clicar.
-
-------------------------------------------------------------------------
 
 # 39. Exercício --- Carrossel da Calculadora
 
